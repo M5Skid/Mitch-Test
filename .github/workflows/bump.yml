@@ -18,6 +18,11 @@ jobs:
         python-version: 3.8
     - name: Install bump2version
       run: python -m pip install bump2version
+    - name: checkout code
+      uses: actions/checkout@v2
+      with:
+        ref: main
+        github_token: ${{ secrets.GITHUB_TOKEN }}
   bump-version:
     runs-on: ubuntu-latest
     outputs: 
