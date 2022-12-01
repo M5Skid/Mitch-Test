@@ -9,12 +9,8 @@ on:
         default: patch
 
 jobs:
-  bump-version:
+  install:
     runs-on: ubuntu-latest
-    outputs: 
-      new_ver: ${{ steps.bump.outputs.new_ver }}
-      old_ver: ${{ steps.bump.outputs.old_ver }}
-      part: ${{ steps.bump.outputs.part }}
     steps:
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
@@ -22,7 +18,14 @@ jobs:
         python-version: 3.8
     - name: Install bump2version
       run: python -m pip install bump2version
-      uses: actions/checkout@v2
+  bump-version:
+    runs-on: ubuntu-latest
+    outputs: 
+      new_ver: ${{ steps.bump.outputs.new_ver }}
+      old_ver: ${{ steps.bump.outputs.old_ver }}
+      part: ${{ steps.bump.outputs.part }}
+    steps:
+    - uses: actions/checkout@v2
     - name: Bump version
       id: bump
       uses: ./
