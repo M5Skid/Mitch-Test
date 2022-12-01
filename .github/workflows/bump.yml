@@ -11,7 +11,13 @@ on:
 jobs:
   install:
     runs-on: ubuntu-latest
-    steps:
+    steps: 
+    - name: Reset prod branch
+        run: |
+          git fetch origin main:main
+          git reset --hard main
+          git config --global user.email "mskidmor@andrew.cmu.edu"
+          git config --global user.name "M5Skid"
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -30,6 +36,7 @@ jobs:
       old_ver: ${{ steps.bump.outputs.old_ver }}
       part: ${{ steps.bump.outputs.part }}
     steps:
+    - uses: actions/checkout@v2
     - name: Bump version
       id: bump
       uses: ./
