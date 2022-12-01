@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
     - name: Reset prod branch
-        run: |
-          git fetch origin main:main
-          git reset --hard main
-          git config --global user.email "mskidmor@andrew.cmu.edu"
-          git config --global user.name "M5Skid"
+      run: |
+        git fetch origin main:main
+        git reset --hard main
+        git config --global user.email "mskidmor@andrew.cmu.edu"
+        git config --global user.name "M5Skid"
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
