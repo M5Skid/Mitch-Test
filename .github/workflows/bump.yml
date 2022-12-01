@@ -30,7 +30,6 @@ jobs:
       old_ver: ${{ steps.bump.outputs.old_ver }}
       part: ${{ steps.bump.outputs.part }}
     steps:
-    - uses: actions/checkout@v2
     - name: Bump version
       id: bump
       uses: ./
