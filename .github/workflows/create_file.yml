@@ -12,8 +12,6 @@ jobs:
   make-file:
     runs-on: ubuntu-latest
     defaults:
-      run:
-        working-directory: process1
     steps:
     - name: Create version file
       run: |
