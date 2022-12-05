@@ -28,7 +28,6 @@ jobs:
         branch: release/${{ version }}
         commit-message: 'chore: release ${{ version }}'
         base: main
-        ftitle: Release ${{ version }}
         labels: chore
         reviewers: M5Skid
         assignees: M5Skid
