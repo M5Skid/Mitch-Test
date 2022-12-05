@@ -1,0 +1,21 @@
+name: Create vesion file
+
+on:
+  workflow_dispatch:
+    inputs: 
+      version:
+        description: 'version number'
+        required: true
+        default: 0.3.25
+        
+jobs:
+  make-file:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: process1
+    steps:
+    - name: Create version file
+      run: |
+        echo 'Current Version "${version}" >> version.cfg
+    
