@@ -21,14 +21,14 @@ jobs:
         ref: main
     - name: Create version file
       run: |
-        echo 'Current Version "${version}"' >> version.cfg
+        echo 'Current Version "${{ version }}"' >> version.cfg
     - name: Create pull request into prod
       uses: peter-evans/create-pull-request@v3
       with:
-        branch: release/${version}
-        commit-message: 'chore: release ${version}'
+        branch: release/${{ version }}
+        commit-message: 'chore: release ${{ version }}'
         base: main
-        ftitle: Release ${version}
+        ftitle: Release ${{ version }}
         labels: chore
         reviewers: M5Skid
         assignees: M5Skid
