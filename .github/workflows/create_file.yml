@@ -1,4 +1,4 @@
-name: Create version file
+name: Create Release and File
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
         default: 0.3.25
         
 jobs:
-  make-file:
+  Create_release:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -19,10 +19,16 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: main
-    - name: Create version file
+    - name: Check for version.cfg
       run: |
-        echo 'Current Version "${{ github.event.inputs.version }}"' >> version.cfg
-    - name: Create pull request into prod
+        if [ -e version.cfg ]; then
+          current_version="$(cat version.cfg | cut -c 19-)"
+          sed -i 's/${{ current_version }}/${{ github.event.inputs.version }}/g'
+          rm tmp.cfg
+        else  
+          echo 'Current Version "${{ github.event.inputs.version }}"' >> version.cfg
+        fi  
+    - name: Pull request
       uses: peter-evans/create-pull-request@v3
       with:
         branch: release/${{ github.event.inputs.version }}
