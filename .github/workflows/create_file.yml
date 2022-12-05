@@ -22,7 +22,7 @@ jobs:
     - name: Check for version.cfg
       run: |
         if [ -e version.cfg ]; then
-          current_version=$(cat version.cfg | cut -c 19-)
+          current_version=$(cat version.cfg | cut -c 20-26)
           sed -i 's/$(current_version)/${{ github.event.inputs.version }}/g' version.cfg
         else  
           echo 'Current Version "${{ github.event.inputs.version }}"' >> version.cfg
