@@ -21,15 +21,15 @@ jobs:
         ref: main
     - name: Create version file
       run: |
-        echo 'Current Version "${{ version }}"' >> version.cfg
+        echo 'Current Version "${{ github.event.inputs.version }}"' >> version.cfg
     - name: Create pull request into prod
       uses: peter-evans/create-pull-request@v3
       with:
-        branch: release/${{ version }}
-        commit-message: 'chore: release ${{ version }}'
+        branch: release/${{ github.event.inputs.version }}
+        commit-message: 'chore: release ${{ github.event.inputs.version }}'
         base: main
         labels: chore
         reviewers: M5Skid
         assignees: M5Skid
         body: |
-          Releasing ${version}.
+          Releasing ${{ github.event.inputs.version }}.
