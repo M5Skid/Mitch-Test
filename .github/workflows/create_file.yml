@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working_directory: process1
+        working-directory: process1
     steps:
     - name: Check out code
       uses: actions/checkout@v2
