@@ -1,0 +1,36 @@
+name: gitref test
+
+on: 
+  workflow_dispatch:
+    inputs: 
+      version:
+        description: 'version number'
+        required: true
+        default: 0.3.25
+
+jobs: 
+  Create_gitref:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: process1
+    steps:
+    - name: Check Out Code
+      uses: actions/checkout@v2
+      with:
+        ref: main
+    - name: create gitref file
+      run: |
+        echo "${GITHUB_REF#*/}" > gitref.cfg
+    - name: Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        branch: release/${{ github.event.inputs.version }}
+        commit-message: 'chore: release ${{ github.event.inputs.version }}'
+        base: main
+        labels: chore
+        reviewers: M5Skid
+        assignees: M5Skid
+        body: |
+          Releasing ${{ github.event.inputs.version }}.
+    
