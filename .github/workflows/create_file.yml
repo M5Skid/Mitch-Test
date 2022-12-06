@@ -25,8 +25,7 @@ jobs:
         if [ -e version.cfg == 'false']; then
            echo "Current_version = ${{ github.event.inputs.version }}" >> version.cfg        
         fi
-        echo -n "::set-output name=current_version::"
-        cat version.cfg | cut -c 20-26
+        echo "::set-output name=current_version::$(cat version.cfg | cut -c 20-26)"
     - name: Bump Version
       id: version-changed
       if: steps.get-current-version.outputs.current_version != ${{ github.event.inputs.version }}
