@@ -15,20 +15,24 @@ jobs:
       run:
         working-directory: process1
     steps:
-    - name: Check out code
+    - name: Check Out Code
       uses: actions/checkout@v2
       with:
         ref: main
     - name: Check for version.cfg
+      id: get-current-version
       run: |
-        echo ${GITHUB_REF#*/}
-        if [ -e version.cfg ]; then
-          current_version="${cat version.cfg | cut -c 20-26}"
-          sed -i 's/${current_version}/${{ github.event.inputs.version }}/g' version.cfg
-        else  
-          echo 'Current Version "${{ github.event.inputs.version }}"' >> version.cfg
-        fi  
-    - name: Pull request
+        if [ -e version.cfg == 'false']; then
+           echo "Current_version = ${{ github.event.inputs.version }}" >> version.cfg        
+        fi
+        echo -n "::set-output name=current_version"
+        cat version.cfg | cut -c 20-26
+    - name: Bump Version
+      id: version-changed
+      if: steps.get-current-version.outputs.current_version != ${{ github.event.inputs.version }}
+      run: |
+        sed -i 's/${{ steps.get-current.version.outputs.current_version }}/${{ github.event.inputs.version }}/g'
+    - name: Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
         branch: release/${{ github.event.inputs.version }}
