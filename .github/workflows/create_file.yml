@@ -22,7 +22,7 @@ jobs:
     - name: Check for version.cfg
       id: get-current-version
       run: |
-        if [ -e version.cfg == 'false']; then
+        if [ ! -f version.cfg ]; then
            echo "Current_version = ${{ github.event.inputs.version }}" >> version.cfg        
         fi
         echo "::set-output name=current_version::$(cat version.cfg | cut -c 20-26)"
