@@ -1,10 +1,13 @@
 name: Copy Version
+
 on:
-	push:
-		paths:
-		 - '.bumpversion.cfg'
+  push:
+    paths:
+      - '.bumpversion.cfg'
+      
 variables:
     version_number: 0.0.0
+    
 jobs:
     Copy_version:
         runs-on: ubuntu-latest
