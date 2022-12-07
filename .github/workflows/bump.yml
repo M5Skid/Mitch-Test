@@ -19,9 +19,7 @@ jobs:
         - name: Set Version
           run: |
             echo "##vso[task.setvariable variable=version_number]$(cat .bumpversion.cfg | grep -i current)"
-        - name: Copy Version
-          working-directory: process1
-          run: |
+            cd process1
             echo "$version_number" > version.cfg
         - name: Pull Request
           uses: peter-evans/create-pull-request@v3
