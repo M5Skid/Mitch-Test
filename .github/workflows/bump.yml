@@ -19,7 +19,7 @@ jobs:
         - name: Copy Version
           working-directory: process1
           run: |
-            echo CV > version.cfg
+            echo $CV > version.cfg
         - name: Pull Request
           uses: peter-evans/create-pull-request@v3
           with:
