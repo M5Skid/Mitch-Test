@@ -5,7 +5,7 @@ on:
     paths:
       - '.bumpversion.cfg'
       
-variables:
+env:
     version_number: 0.0.0
     
 jobs:
