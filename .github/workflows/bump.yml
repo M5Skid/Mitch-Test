@@ -4,9 +4,6 @@ on:
   push:
     paths:
       - '.bumpversion.cfg'
-      
-env:
-    version_number: 0.0.0
     
 jobs:
     Copy_version:
@@ -18,9 +15,11 @@ jobs:
             ref: main
         - name: Set Version
           run: |
-            echo "##vso[task.setvariable variable=version_number]$(cat .bumpversion.cfg | grep -i current)"
-            cd process1
-            echo "$version_number" > version.cfg
+            echo "CV=$(cat .bumpversion.cfg | grep -i current)" >> $GITHUB_ENV
+        - name: Copy Version
+          working-directory: process1
+          run: |
+            echo CV > version.cfg
         - name: Pull Request
           uses: peter-evans/create-pull-request@v3
           with:
