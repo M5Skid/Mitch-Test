@@ -23,4 +23,15 @@ jobs:
           working-directory: process1
           run: |
             echo "$version_number" > version.cfg
+        - name: Pull Request
+          uses: peter-evans/create-pull-request@v3
+          with:
+            branch: release/test
+            commit-message: 'chore: release test'
+            base: main
+            labels: chore
+            reviewers: M5Skid
+            assignees: M5Skid
+            body: |
+              Releasing test.
 
