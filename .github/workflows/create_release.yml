@@ -11,9 +11,6 @@ on:
 jobs:
   Create_release:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: process1
     steps:
     - name: Check Out Code
       uses: actions/checkout@v2
@@ -21,7 +18,7 @@ jobs:
         ref: main
     - name: Bump Version
       run: |
-        echo "Current_version = ${{ github.event.inputs.version }}" > version.cfg
+        echo "Current_version = ${{ github.event.inputs.version }}" > .bumpversion.cfg
     - name: Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
